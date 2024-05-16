@@ -1,0 +1,13 @@
+.fill {
+    height: 100vh;
+}
+
+.footer {
+height: 50px; /* Set the fixed height of the footer here */
+line-height: 50px; /* Vertically center the text there */
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}

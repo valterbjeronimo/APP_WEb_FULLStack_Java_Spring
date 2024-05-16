@@ -1,0 +1,81 @@
+<header xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+  <nav class="navbar static-top navbar-expand-md navbar-dark bg-dark" aria-label="Navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/}">tokio Filmes </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse d-flex justify-content-end" id="Navbar Collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0" >
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/search}">Search Films</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/films/add}" sec:authorize="isAuthenticated()">Add Film</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/person/add}" sec:authorize="isAuthenticated()">Add Person</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+            <a class="nav-link" th:href="@{register}">Create User</a>
+          </li>
+        </ul>
+        <form></form>
+
+          <form class="d-flex align-items-center" th:method="get" th:action="@{/films/search}">
+            <input class="form-control" type="text" name="query" id="query" placeholder="Search" aria-label="search">
+            <input type="hidden" name="criteria" id="criteria" value="title">
+            <button class="btn btn-outline-success mx-2" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+          <div class="d-flex align-items-center" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}" class="link-primary">Login</a>
+            <small class="mx-1" style="color:rgba(209, 204, 192,1.0)" >or</small>
+            <a class="btn btn-primary btn-sm" th:href="@{/register}">Register</a>
+          </div>
+          <div class="d-flex align-items-center" sec:authorize="isAuthenticated()">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" th:text="${#authentication.getPrincipal().getUsername()}"></button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/profile/}">Profile</a></li>
+                <li><a class="dropdown-item" th:href="@{/profile/__${#authentication.getPrincipal().getUsername()}__/films}">Films</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <script type="text/javascript">
+    (function() {
+        console.log("checking params");
+        let params = new URLSearchParams(window.location.search);
+        if (params.has('message')) {
+          console.log("params has message.");
+          let message = params.get('message');
+          if (message == 'logout') {
+            console.log("message is logout");
+            iziToast.info({
+              title: 'Goodbye!',
+              message: 'Successfully logged out!',
+            });
+          }
+          else if (message == 'login') {
+            console.log("message is login");
+            iziToast.success({
+              title: 'Hello!',
+              message: 'Successfully logged in!',
+            });
+          }
+        }
+    })();
+</script>
+</header>

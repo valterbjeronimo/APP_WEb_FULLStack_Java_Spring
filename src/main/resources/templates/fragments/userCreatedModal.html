@@ -1,0 +1,34 @@
+<div th:fragment="userCreatedModal" class="modal fade" id="userCreatedModal" tabindex="-1" aria-hidden="true" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script type="text/javascript">
+                window.onload =
+                function() {
+                    let params = new URLSearchParams(window.location.search);
+                    if (params.has('user')) {
+                        let message = params.get('user');
+                        if (message == 'created') {
+                            console.log("message is created");
+                            $('#userCreatedModal').modal("show");
+                        }
+                    }
+                };
+    </script>
+
+    <div class="modal-dialog alert-success" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">User Successfully Created</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <p th:text="'User: ' + ${user.username} + ' created with roles: '"></p>
+                    <ul class="list-unstyled">
+                        <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

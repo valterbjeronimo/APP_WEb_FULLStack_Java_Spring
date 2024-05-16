@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head::head"></head>
+<body class="d-flex flex-column min-vh-100 body-color" >
+    <header th:replace="fragments/header :: header"></header>
+
+    <main>
+        <div class="container my-2">
+            <div class="row">
+                <div class="container mx-auto rounded">
+                    <!--- content goes here --->
+                    <div th:replace="searched-film :: searched-film(films=${films})"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head::head"></head>
+<body class="d-flex flex-column min-vh-100 body-color" >
+<header th:replace="fragments/header :: header"></header>
+
+<main>
+    <div class="container my-2">
+        <div class="row">
+            <div class="container mx-auto rounded">
+                <!--- content goes here --->
+                <div class="col-8 col-centered">
+                    <form></form>
+                    <form th:method="POST" enctype="multipart/form-data" th:object="${createUserDTO}" th:action="@{/register}">
+                        <div class="d-flex justify-content-center align-items-center mt-1">
+                            <h2 class="text-center width-100">Register</h2>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md">
+                                <label class="labels">Username</label>
+                                <input type="text" placeholder="Username" th:field="*{username}" class="form-control" autofocus="on">
+                                <div class="alert alert-warning mb-0 mt-1 py-1" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md">
+                                <label class="labels">Password</label>
+                                <input type="password" placeholder="Password" th:field="*{password}" class="form-control" style="margin-bottom: 0.2rem;">
+                                <div class="alert alert-warning mb-0 mt-1 py-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="margin-bottom: 0.2rem;"></div>
+                                <input type="password" placeholder="Repeat Password" th:field="*{confirmPassword}" class="form-control" style="margin-top: 0.2rem;">
+                                <div class="alert alert-warning mb-0 mt-1 py-1" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md">
+                                <label class="labels">Name</label>
+                                <input type="text" placeholder="Name" th:field="*{name}" class="form-control">
+                                <div class="alert alert-warning mb-0 mt-1 py-1" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                            </div>
+                            <div class="col-md">
+                                <label class="labels">Surname</label>
+                                <input type="text" placeholder="Surname" th:field="*{surname}" class="form-control">
+                                <div class="alert alert-warning mb-0 mt-1 py-1" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md">
+                                <label class="labels">Email</label>
+                                <input type="email"  placeholder="email" th:field="*{email}" class="form-control">
+                                <div class="alert alert-warning mb-0 mt-1 py-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col">
+                                <label for="userImage" class="labels">Profile Picture</label>
+                                <input class="form-control" type="file" name="userImage" id="userImage" style="padding: 0.25rem;">
+                            </div>
+                            <div class="col">
+                                <label for="birthDate" class="labels">Birthdate</label>
+                                <input type="text" data-provide="datepicker" data-date-format="dd/mm/yyyy" class="form-control datepicker" id="birthDate" autocomplete="off" th:field="*{birthDate}">
+                            </div>
+                            <div class="col" sec:authorize="hasAuthority('ADMIN')">
+                                <label for="role">Role</label>
+                                <select id="role" class="form-select" th:field="*{roles}">
+                                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <button class="btn btn-primary profile-button mx-2" type="submit">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+<script>
+    $('.datepicker').datepicker({
+        startView: 2
+});
+</script>
+</body>
+</html>

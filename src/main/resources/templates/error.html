@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head"></head>
+<header th:replace="fragments/header :: header"></header>
+<body class="d-flex flex-column min-vh-100 body-color">
+<main>
+    <div class="container">
+        <div class="row center align-items-center">
+                <br><br>
+            <div class="container">
+                <div class="alert alert-danger" role="alert">
+                    <p><strong>Whoops! Something went wrong.</strong></p>
+                    <p th:text="${message}"></p>
+                    <p><a href="#" class="alert-link" onclick="history.back()">Go Back</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

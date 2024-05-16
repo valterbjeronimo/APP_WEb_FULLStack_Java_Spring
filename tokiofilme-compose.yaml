@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+  spring-boot-app:
+    build: .
+    ports: 
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=mysql-db
+      - DATABASE_USER=film-fanatics-user
+      - DATABASE_PASSWORD=vLNeLnKdjL2HC2GA
+      - DATABASE_NAME=tokio-filmes
+      - DATABASE_PORT=3306
+    networks:
+      - mysql-net
+    depends_on: 
+      - mysql-db
+  mysql-db:
+    image: mysql:5.7
+    environment: 
+      - MYSQL_DATABASE=film-fanatics
+      - MYSQL_USER=film-fanatics-user
+      - MYSQL_PASSWORD=vLNeLnKdjL2HC2GA
+      - MYSQL_ROOT_USER=super-user
+      - MYSQL_ROOT_PASSWORD=JpG7Y4Ayga843BBQ
+    command: --sql_mode="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+    restart: on-failure
+    networks:
+      - mysql-net
+    volumes:
+      - mysql-data:/var/lib/mysql
+  myphp:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - 4444:80
+    environment:
+      -  PMA_HOST=mysql-db
+    depends_on:
+      - mysql-db
+    networks: 
+      - mysql-net
+volumes:
+  mysql-data:
+    driver: local
+networks:
+  mysql-net:
+    
+    
+    

@@ -1,0 +1,21 @@
+package com.tokioFilme.service.filmsearch.implementation;
+
+import com.tokioFilme.domain.Film;
+import com.tokioFilme.repository.FilmRepository;
+import com.tokioFilme.service.filmsearch.strategy.implementation.FilmSearchStrategy;
+
+import java.util.Set;
+
+public class FilmScreenwriterSearch implements FilmSearchStrategy {
+
+  private final FilmRepository repository;
+
+  public FilmScreenwriterSearch(FilmRepository repository) {
+    this.repository = repository;
+  }
+
+  @Override
+  public Set<Film> searchFilm(String searchParam) {
+    return repository.findByFilmScreenwritersNameContainsOrFilmScreenwritersSurnameContainsAllIgnoreCase(searchParam, searchParam);
+  }
+}

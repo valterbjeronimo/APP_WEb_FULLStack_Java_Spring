@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head::head"></head>
+<body class="d-flex flex-column min-vh-100 body-color" >
+    <header th:replace="fragments/header :: header"></header>
+
+    <main>
+        <div class="container my-2">
+            <div class="row">
+                <div class="container mx-auto py-2 rounded bg-white">
+                    <!--- content goes here --->
+                    <form></form>
+                    <form th:method="POST" th:object="${film}" enctype="multipart/form-data" th:href="@{films/add}">
+                        <div class="row px-1 mt-1">
+                            <div class="col">
+                                <label for="title">Title</label>
+                                <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Title">
+                            </div>
+                            <div class="col-2">
+                                <label for="year">Year</label>
+                                <select class="form-select" th:field="*{year}" id="year">
+                                    <option th:each="i : ${#numbers.sequence(1990, 2022)}" th:value="${i}" th:text="${i}">Year</option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <label for="duration">Duration</label>
+                                <input type="number" th:field="*{duration}" class="form-control" id="duration" placeholder="Duration (mins)">
+                            </div>
+                            <div class="col">
+                                <label for="director">Director</label>
+                                <select class="form-select" id="director" th:field="*{filmDirector}">
+                                    <option th:each="director : ${directors}" th:value="${director.id}" th:text="${director.name} + ' ' + ${director.surname}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row py-1 px-1">
+                            <div class="col">
+                                <label for="posterImage" class="labels">Poster Image</label>
+                                <input class="form-control" type="file" name="posterImage" id="posterImage" style="padding: 0.25rem;">
+                            </div>
+                            <div class="col-8 py-1 px-1">
+                                <label for="synopsis">Synopsis</label>
+                                <textarea type="text" class="form-control" id="synopsis" th:field="*{synopsis}" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="row px-1">
+                            <div class="col py-1">
+                                <label for="actors">Actors</label>
+                                <select class="form-select" id="actors" multiple th:field="*{filmActors}">
+                                    <option th:each="actor: ${actors}" th:value="${actor.id}" th:text="${actor.name} + ' ' + ${actor.surname}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col px-1">
+                                <label for="screenwriters">Screenwriters</label>
+                                <select class="form-select" id="screenwriters" multiple th:field="*{filmScreenwriters}">
+                                    <option th:each="screenwriter : ${screenwriters}" th:value="${screenwriter.id}" th:text="${screenwriter.name} + ' ' + ${screenwriter.surname}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col px-1">
+                                <label for="composers">Composers</label>
+                                <select class="form-select" id="composers" multiple th:field="*{filmComposers}">
+                                    <option th:each="composer : ${composers}" th:value="${composer.id}" th:text="${composer.name} + ' ' + ${composer.surname}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col px-1">
+                                <label for="cinematographers">Cinematographers</label>
+                                <select class="form-select" id="cinematographers" multiple th:field="*{filmCinematographers}">
+                                    <option th:each="cinematographer : ${cinematographer}" th:value="${cinematographer.id}" th:text="${cinematographer.name} + ' ' + ${cinematographer.surname}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center my-1">
+                            <button class="btn btn-primary mx-1" type="submit" th:text="Submit"></button>
+                            <button class="btn btn-secondary mx-1" onClick="window.location.reload();" th:text="Reset"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<div th:fragment="personCreatedModal" class="modal fade" id="personCreatedModal" tabindex="-1" aria-hidden="true" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script type="text/javascript">
+                window.onload =
+                function() {
+                    let params = new URLSearchParams(window.location.search);
+                    if (params.has('person')) {
+                        let message = params.get('person');
+                        if (message == 'created') {
+                            console.log("message is created");
+                            $('#personCreatedModal').modal("show");
+                        }
+                    }
+                };
+    </script>
+
+    <div class="modal-dialog alert-success" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Success!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body">
+                    <p>Successfully created!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

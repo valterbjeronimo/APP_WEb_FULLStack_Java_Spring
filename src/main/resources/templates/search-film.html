@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head::head"></head>
+<body class="d-flex flex-column min-vh-100 body-color" >
+<header th:replace="fragments/header :: header"></header>
+
+<main>
+    <div class="container my-2">
+        <div class="row">
+            <div class="container mx-auto rounded bg-light">
+                <!--- content goes here --->
+                    <form></form>
+                    <form class="row d-flex justify-content-center p-4 align-items-middle" th:method="GET" th:action="@{films/search}">
+                        <div class="col-6">
+                            <input class="form-control" type="text" name="query" id="query" placeholder="Search">
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" name="criteria" id="criteria">
+                                <option th:each="c : ${criteria}" th:value="${c}" th:text="${c.displayValue}"></option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>

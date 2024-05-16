@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head::head"></head>
+<body class="d-flex flex-column min-vh-100 body-color">
+<header th:replace="fragments/header :: header"></header>
+
+<main>
+    <div th:replace="fragments/userCreatedModal :: userCreatedModal(user=${user})"></div>
+
+    <div class="container">
+        <div class="row center align-items-center">
+            <div class="container rounded bg-white mt-3">
+                <div class="row">
+                    <div class="col-md-3 border-right">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                            <img class="rounded-circle mt-5" width="150px" th:src="@{'/images/users/' + ${user.image}}" style="border-color: #227093; border: 1px solid;">
+                        </div>
+                    </div>
+                    <div class="col-md-4 border-right">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="text-right" th:text="${user.username}"></h3>
+                            </div>
+                            <div class="row mt-2">
+                                <div class ="col">
+                                    <div class="row">
+                                        <strong class="col-md-6"><label class="labels">Name</label></strong>
+                                    </div>
+                                    <div class="row">
+                                    <small th:text="${user.name}"></small>
+                                    </div>
+                                </div>
+                                <div class ="col">
+                                    <div class="row">
+                                        <strong class="col-md-6"><label class="labels">Surname</label></strong>
+                                    </div>
+                                    <div class="row">
+                                        <small th:text="${user.surname}"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-2">
+                                    <strong class="labels">Email</strong>
+                                    <div class="row">
+                                        <small th:text="${user.email}"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    <strong class="labels">Birthdate</strong>
+                                    <div class="row">
+                                        <small th:text="${#temporals.format(user.birthDate, 'dd MMMM yyyy')}"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    <strong class="labels">Joined</strong>
+                                    <div class="row">
+                                        <small th:text="${#temporals.format(user.creationDate, 'dd MMMM yyyy')}"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    <strong class="labels">Last Login</strong>
+                                    <div class="row">
+                                        <small th:text="${#temporals.format(user.lastLogin, 'hh:mm z dd MMMM')}"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5 text-center" th:if="${#authentication.getPrincipal().getUsername() == user.username}">
+                                <a class="btn btn-primary profile-button mx-1" th:href="@{/profile/edit/}">Edit Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="text-right">Films</h3>
+                            </div>
+                            <div class="row mt-2">
+                                <ul>
+                                    <li class="d-flex align-items-center mx-1" th:each="film : ${user.films}">
+                                        <a th:href="@{'/film/' + ${film.uri}}" class="link" title="${film.title}">
+                                            <img class="responsive-image py-3 my-1" th:src="@{'/images/films/' + ${film.poster}}" height="120" id="Poster" alt="Film Poster" src="">
+                                        </a>
+                                        <strong class="mx-2" th:src="@{'/film/' + @{film.id}}" th:text="${film.title}"></strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+
+
+
+</html>

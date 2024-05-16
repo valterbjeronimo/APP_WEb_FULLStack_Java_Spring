@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head::head"></head>
+<body class="d-flex flex-column min-vh-100 body-color" >
+<header th:replace="fragments/header :: header"></header>
+
+<main>
+    <div class="container my-2">
+        <div class="row">
+            <div class="container mx-auto rounded">
+                <!--- content goes here --->
+                <div th:fragment="searched-film" class="row">
+                    <div class="card m-2" th:each="film : ${films}" style="width: 12rem;">
+                        <img th:src="@{'/images/films/' + ${film.poster}}" src="" class="card-img-top p-3" alt="Film Poster">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${film.title}">Film Title</h5>
+                            <p class="card-text" th:text="${film.synopsis}">Synopsis</p>
+                            <a th:href="@{/films/__${film.uri}__}" class="btn btn-primary">Info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>
